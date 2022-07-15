@@ -11,4 +11,5 @@ export interface HYRequestInterceptors {
 // 自定义一个请求参数类型, 来代替axios自带的AxiosRequestConfig, 在其中增加拦截器
 export interface HYRequestConfig extends AxiosRequestConfig {
   interceptors?: HYRequestInterceptors
+  showLoding?: boolean
 }

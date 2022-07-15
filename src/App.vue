@@ -12,6 +12,11 @@
   <el-button type="danger">Danger</el-button>
   <el-button>中文1</el-button>
   <el-input v-model="input" placeholder="Please input" />
+  <!-- <el-table v-loading="loading" :data="tableData" style="width: 100%">
+    <el-table-column prop="date" label="Date" width="180" />
+    <el-table-column prop="name" label="Name" width="180" />
+    <el-table-column prop="address" label="Address" />
+  </el-table> -->
 </template>
 
 <script lang="ts">
