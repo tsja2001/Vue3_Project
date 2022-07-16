@@ -7,10 +7,16 @@ import hyRequest from './service'
 import 'element-plus/theme-chalk/base.css'
 import 'element-plus/theme-chalk/display.css'
 import 'element-plus/theme-chalk/el-loading.css'
-// import { ElInput } from 'element-plus'
-// import { ElButton } from 'element-plus'
+import 'normalize.css'
+import './assets/css/index.less'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 const app = createApp(App)
+
+// 全局注册图标
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
+}
 
 app.use(router)
 app.use(store)
@@ -19,8 +25,8 @@ app.use(store)
 
 app.mount('#app')
 
-console.log(11)
-console.log(11)
+// console.log(11)
+// console.log(11)
 
 interface DataType {
   data: any
@@ -38,12 +44,12 @@ interface DataType {
 //     console.log(res.returnCode)
 //     console.log(res.success)
 //   })
-hyRequest
-  .get<DataType>({
-    url: 'home/multidata'
-  })
-  .then((res) => {
-    console.log(res.data)
-    console.log(res.returnCode)
-    console.log(res.success)
-  })
+// hyRequest
+//   .get<DataType>({
+//     url: 'home/multidata'
+//   })
+//   .then((res) => {
+//     console.log(res.data)
+//     console.log(res.returnCode)
+//     console.log(res.success)
+//   })
