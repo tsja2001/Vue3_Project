@@ -28,6 +28,9 @@ export default defineComponent({
       password: ''
     })
 
+    // 收到父组件传来要登录的信息
+    // ...
+
     return {
       account,
       rules

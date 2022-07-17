@@ -36,6 +36,7 @@ export default defineComponent({
     //
     const formRef = ref<InstanceType<typeof ElForm>>()
 
+    // 收到父组件传来要登录的信息
     const loginAccount = (isKeepPassword: boolean) => {
       // 来获取表单验证是否通过
       formRef.value?.validate((valid) => {

@@ -1,25 +1,25 @@
 <template>
   <div class="login-panel">
     <h1 class="title">管理系统</h1>
-    <el-tabs type="border-card" class="demo-tabs" stretch>
-      <el-tab-pane>
+    <el-tabs type="border-card" class="demo-tabs" stretch v-model="currentTab">
+      <el-tab-pane name="account">
         <template #label>
           <span class="custom-tabs-label">
             <el-icon><calendar /></el-icon>
             <span>账号登录</span>
           </span>
         </template>
-        <login-account-vue ref="loginInRef"></login-account-vue>
+        <login-account-vue ref="accountRef"></login-account-vue>
       </el-tab-pane>
 
-      <el-tab-pane label="Config">
+      <el-tab-pane label="Config" name="phone">
         <template #label>
           <span class="custom-tabs-label">
             <el-icon><Cellphone /></el-icon>
             <span>手机登录</span>
           </span>
         </template>
-        <login-phone-vue></login-phone-vue>
+        <login-phone-vue ref="phoneRef"></login-phone-vue>
       </el-tab-pane>
     </el-tabs>
     <div class="btm-btns">
@@ -42,15 +42,27 @@ export default defineComponent({
     loginPhoneVue
   },
   setup() {
-    const loginInRef = ref<InstanceType<typeof loginAccountVue>>()
-    // 点击登录
+    // 定义属性
+    const isKeepPassword = ref(true)
+    const accountRef = ref<InstanceType<typeof loginAccountVue>>()
+    const phoneRef = ref<InstanceType<typeof loginPhoneVue>>()
+    const currentTab = ref('account')
+
+    // 点击方法
     const handleLoginClick = () => {
-      loginInRef.value?.loginAccount(isKeepPassword.value)
+      if (currentTab.value == 'account') {
+        accountRef.value?.loginAccount(isKeepPassword.value)
+      } else {
+        // 调用phone中的登录方法
+      }
     }
 
-    const isKeepPassword = ref(true)
-
-    return { isKeepPassword, handleLoginClick, loginInRef }
+    return {
+      isKeepPassword,
+      accountRef,
+      currentTab,
+      handleLoginClick
+    }
   }
 })
 </script>

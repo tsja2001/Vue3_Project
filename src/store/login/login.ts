@@ -13,8 +13,12 @@ const loginModule: Module<ILoginState, IRootState> = {
   getters: {},
   mutations: {},
   actions: {
-    accountLoginAction({ commit }, payload) {
+    accountLoginAction({ commit }, payload: any) {
       console.log('执行accountLogAction')
+      console.log(payload)
+    },
+    phoneLoginAction({ commit }, payload: any) {
+      console.log('phoneLoginAction')
       console.log(payload)
     }
   }
