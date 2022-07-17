@@ -28,11 +28,11 @@ app.mount('#app')
 // console.log(11)
 // console.log(11)
 
-interface DataType {
-  data: any
-  returnCode: string
-  success: boolean
-}
+// interface DataType {
+//   data: any
+//   returnCode: string
+//   success: boolean
+// }
 
 // hyRequest
 //   .request<DataType>({

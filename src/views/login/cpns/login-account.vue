@@ -22,8 +22,11 @@ import { rules } from '../config/account-config'
 // 导入本地缓存工具, 存储用户名密码
 import loaclCache from '@/utils/caches'
 
+import { useStore } from 'vuex'
 export default defineComponent({
   setup() {
+    const store = useStore()
+
     // 配置表单显示的内容
     const account = reactive({
       name: loaclCache.getCache('name') ?? '',
@@ -48,6 +51,7 @@ export default defineComponent({
             loaclCache.deleteCache('password')
           }
           // 2. 开始进行登录验证
+          store.dispatch('login/accountLoginAction', { ...account })
         }
       })
     }

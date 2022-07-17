@@ -1,7 +1,10 @@
 <template>
   <div>
-    <el-button @click="handleBtn">我是父组件, 点击了我</el-button>
     <test-cpn ref="testConRef"></test-cpn>
+    <el-button @click="handleBtn">我是父组件, 点击了我</el-button>
+    <h2>store中的name: {{ $store.state.name }}</h2>
+    <h2>store中的age: {{ $store.state.age }}</h2>
+    <h2>store中的height: {{ $store.state.height }}</h2>
   </div>
 </template>
 
@@ -12,18 +15,15 @@ import TestCpn from './test-cpn.vue'
 export default defineComponent({
   // 想实现一个功能, 在父组件(本组件)点击按钮, 子组件能知道点击事件
   setup() {
-    const testConRef = ref()
-
     const handleBtn = () => {
-      // 更改子组件的值
-      testConRef.value.cpnValue++
-      // 调用子组件的方法(即 父组件 传递事件给 子组件)
-      testConRef.value.getFunction()
+      console.log('点击了父组件')
+      // $store.commit('mutationsFn')
     }
-
-    return { testConRef, handleBtn }
+    return { handleBtn }
   },
-  components: { TestCpn }
+  components: {
+    TestCpn
+  }
 })
 </script>
 
