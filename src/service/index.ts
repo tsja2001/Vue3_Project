@@ -1,17 +1,17 @@
 // service文件的统一出口
 import HYRequest from './request'
 import { BASE_URL, TIME_OUT } from './request/config'
+import localCache from '@/utils/caches'
 
 const hyRequest = new HYRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
   interceptors: {
-    requestInterceptor: (config) => {
-      console.log('请求拦截成功')
+    requestInterceptor: (config: any) => {
       // 携带token
-      const token = 'xxx'
+      const token = localCache.getCache('token')
       if (token) {
-        // config.headers.Authorization = `Bearer ${token}`
+        config.headers.Authorization = `Bearer ${token}`
       }
       return config
     },

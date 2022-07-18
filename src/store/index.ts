@@ -31,3 +31,11 @@ const store = createStore<IRootState>({
 })
 
 export default store
+
+/**
+ * 初始化加载登录时存储的
+ * token, 用户数据, 用户菜单等数据
+ */
+export function setupStore(): void {
+  store.dispatch('login/loadLocalLogin')
+}

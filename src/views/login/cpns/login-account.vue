@@ -27,16 +27,16 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    // 配置表单显示的内容
+    // 配置要从input表单中保存的 姓名 和 密码
     const account = reactive({
       name: loaclCache.getCache('name') ?? '',
       password: loaclCache.getCache('password') ?? ''
     })
 
-    //
+    // 表单组件, 用于获取input输入的内容和做表单验证
     const formRef = ref<InstanceType<typeof ElForm>>()
 
-    // 收到父组件传来要登录的信息
+    // 收到父组件中传来要登录的请求, 进行登录操作
     const loginAccount = (isKeepPassword: boolean) => {
       // 来获取表单验证是否通过
       formRef.value?.validate((valid) => {
