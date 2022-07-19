@@ -9,16 +9,17 @@
 </template>
 
 <script lang="ts">
-// import { emit } from 'process'
-// import { emit } from 'process'
 import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
   emits: ['flodChange'],
+
   setup(props, { emit }) {
     const isFold = ref(false)
+    // 点击 折叠/展开 icon
     const handleFoldClick = () => {
       isFold.value = !isFold.value
+      // 通过事件总线, 向父组件传递折叠/展开的事件
       emit('foldChange' as any, isFold.value as any)
     }
     return { handleFoldClick, isFold }

@@ -2,13 +2,16 @@
   <div class="main">
     <el-container class="main-content">
       <el-aside :width="isCollapsed ? '60px' : '210px'">
+        <!-- 以参数形式, 将是否要折叠的变量, 传递给组件 -->
         <nav-menu :collapse="isCollapsed"></nav-menu>
       </el-aside>
       <el-container class="page">
         <el-header class="page-header">
           <nav-header @foldChange="HandlerFoldChange"></nav-header>
         </el-header>
-        <el-main class="page-content">Main</el-main>
+        <el-main class="page-content">
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -29,6 +32,8 @@ export default defineComponent({
   setup() {
     // 标识是否折叠
     const isCollapsed = ref(false)
+    // 接受header传递来的折叠/展开导航栏事件,
+    // 保存状态, 以参数形式传递给menu导航栏组件
     const HandlerFoldChange = (isFold: boolean) => {
       isCollapsed.value = isFold
     }

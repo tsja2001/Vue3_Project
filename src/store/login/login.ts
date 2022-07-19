@@ -12,6 +12,7 @@ import localCache from '@/utils/caches'
 import router from '@/router'
 
 import { removeStyle } from 'element-plus/es/utils'
+import { mapMenusToRoutes } from '@/utils/map-menus'
 
 const loginModule: Module<ILoginState, IRootState> = {
   namespaced: true,
@@ -32,6 +33,22 @@ const loginModule: Module<ILoginState, IRootState> = {
     },
     changeUserMenus(state, userMenus) {
       state.userMenus = userMenus
+
+      console.log('注册动态路由')
+
+      // userMenus => routes
+      const routes = mapMenusToRoutes(userMenus)
+
+      // 将routes => router.main.children
+      routes.forEach((route) => {
+        console.log(route)
+        /**
+         * 格式
+         * name: "user"
+         * path: "/main/system/user"
+         */
+        router.addRoute('main', route)
+      })
     }
   },
   actions: {

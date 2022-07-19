@@ -28,7 +28,10 @@
             </template>
             <!-- 二级菜单里面的item -->
             <template v-for="subitem in item.children" :key="subitem.id">
-              <el-menu-item :index="subitem.id + ''">
+              <el-menu-item
+                :index="subitem.id + ''"
+                @click="handleMenuItemClick(subitem)"
+              >
                 <i v-if="subitem.icon" :class="subitem.icon"></i>
                 <span>{{ subitem.name }}</span>
               </el-menu-item>
@@ -49,11 +52,12 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
-// import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import { useStore } from '@/store'
 
 export default defineComponent({
   props: {
+    // 接受是否要折叠的参数
     collapse: {
       type: Boolean,
       default: false
@@ -62,8 +66,19 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const userMenus = computed(() => store.state.login.userMenus)
+
+    const router = useRouter()
+
+    // 点击其中的每个元素, 路由到对应组件
+    const handleMenuItemClick = (item: any) => {
+      // 格式: item: { url: "/main/system/user" }
+      router.push({
+        path: item.url ?? '/not-found'
+      })
+    }
     return {
-      userMenus
+      userMenus,
+      handleMenuItemClick
     }
   }
 })
