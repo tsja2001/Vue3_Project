@@ -20,8 +20,9 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     "'$store' is not defined": 'off',
-    "eslint@typescript-eslint/explicit-module-boundary-types": 'off',
-    "Missing return type on function.eslint@typescript-eslint/explicit-module-boundary-types": "off",
-    "eslint@typescript-eslint/explicit-module-boundary-types": "off"
+    'eslint@typescript-eslint/explicit-module-boundary-types': 'off',
+    'Missing return type on function.eslint@typescript-eslint/explicit-module-boundary-types':
+      'off',
+    'eslint@typescript-eslint/explicit-module-boundary-types': 'off'
   }
 }

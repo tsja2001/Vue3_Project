@@ -13,8 +13,6 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import { setupStore } from './store'
 
 const app = createApp(App)
-
-// 全局注册图标
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }

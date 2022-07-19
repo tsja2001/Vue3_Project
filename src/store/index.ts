@@ -1,5 +1,9 @@
-import { createStore } from '../../node_modules/vuex'
-import { IRootState } from './types'
+import {
+  createStore,
+  Store,
+  useStore as useVuexStore
+} from '../../node_modules/vuex'
+import { IRootState, IStoreType } from './types'
 import login from './login/login'
 
 const store = createStore<IRootState>({
@@ -38,4 +42,9 @@ export default store
  */
 export function setupStore(): void {
   store.dispatch('login/loadLocalLogin')
+}
+
+// 自定义一个useStore功能调用vuex的useStore, 增加了自定义类型
+export function useStore(): Store<IStoreType> {
+  return useVuexStore()
 }

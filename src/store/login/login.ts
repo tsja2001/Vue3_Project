@@ -30,7 +30,7 @@ const loginModule: Module<ILoginState, IRootState> = {
     changeUserInfo(state, userInfo) {
       state.userInfo = userInfo
     },
-    changeUserMeuns(state, userMenus) {
+    changeUserMenus(state, userMenus) {
       state.userMenus = userMenus
     }
   },
@@ -55,7 +55,7 @@ const loginModule: Module<ILoginState, IRootState> = {
       const userMenusResult = await requestUserMenusByRoleId(userInfo.role.id)
       const userMenus = userMenusResult.data
       // 在state和本地分别存储userMenus
-      commit('changeUserMeuns', userMenus)
+      commit('changeUserMenus', userMenus)
       localCache.setCache('userMenus', userMenus)
 
       // 4. 各种数据请求完了, 跳到首页
