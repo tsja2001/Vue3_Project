@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 
 import localCache from '@/utils/caches'
+import { firstMenu } from '@/utils/map-menus'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -40,10 +41,9 @@ router.beforeEach((to) => {
     }
   }
 
-  if (to.path.indexOf('/main') !== -1) {
-    if (to.name === 'notFound') {
-      to.name = 'user'
-    }
+  // 当要跳转到/main路径时候, 自动跳转到保存的第一个menuitem
+  if (to.path === '/main') {
+    return firstMenu.url
   }
 })
 

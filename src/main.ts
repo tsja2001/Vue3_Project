@@ -17,9 +17,9 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 
-app.use(router)
 app.use(store)
-// 初始化store中token, 用户数据, 用户菜单...数据
 setupStore()
+app.use(router)
+// 初始化store中token, 用户数据, 用户菜单...数据
 
 app.mount('#app')

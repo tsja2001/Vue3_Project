@@ -6,7 +6,7 @@
     </div>
     <!-- type=1: 可以展开的菜单; type=2: 可以切换页面的菜单 type=3: 按钮权限 -->
     <el-menu
-      default-active="2"
+      :default-active="defaultValue"
       class="el-menu-vertical"
       background-color="#0c2135"
       text-color="#b7bdc3"
@@ -51,9 +51,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { defineComponent, computed, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useStore } from '@/store'
+import { pathMapToMenu } from '@/utils/map-menus'
 
 export default defineComponent({
   props: {
@@ -68,6 +69,14 @@ export default defineComponent({
     const userMenus = computed(() => store.state.login.userMenus)
 
     const router = useRouter()
+    /**
+     * 38课
+     * 解决问题: 因为设置了 default-active = 2 为默认值
+     * menu选择的菜单, 刷新之后选择的元素都会恢复到默认值
+     * 解决方法: 刷新后, 根据当前路径, 匹配对应default-active的值, 实现刷新后菜单位置不变
+     */
+    const route = useRoute()
+    const currentPath = route.path
 
     // 点击其中的每个元素, 路由到对应组件
     const handleMenuItemClick = (item: any) => {
@@ -76,9 +85,15 @@ export default defineComponent({
         path: item.url ?? '/not-found'
       })
     }
+
+    const menu = pathMapToMenu(userMenus.value, currentPath)
+    // console.log(menu.id)
+    const defaultValue = ref(menu.id + '')
+
     return {
       userMenus,
-      handleMenuItemClick
+      handleMenuItemClick,
+      defaultValue
     }
   }
 })
@@ -101,6 +116,7 @@ export default defineComponent({
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  // justify-content: space-between;
   justify-content: flex-start;
   height: 48px;
   width: 100%;
