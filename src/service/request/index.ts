@@ -87,7 +87,6 @@ class HYRequest {
           if (config.interceptors?.resopnseInterceptor) {
             // res = config.interceptors.resopnseInterceptor(res)
           }
-          console.log(res)
 
           this.showLoding = true
 

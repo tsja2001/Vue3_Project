@@ -41,7 +41,6 @@ const loginModule: Module<ILoginState, IRootState> = {
 
       // 将routes => router.main.children
       routes.forEach((route) => {
-        console.log(route)
         /**
          * 格式
          * name: "user"
