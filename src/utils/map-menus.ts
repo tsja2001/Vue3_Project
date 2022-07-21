@@ -1,3 +1,4 @@
+import { IBreadcrumb } from '@/base-ui/breadcrumb'
 import { RouteRecordRaw } from 'vue-router'
 
 let firstMenu: any = null
@@ -37,15 +38,62 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
   return routes
 }
 
-export function pathMapToMenu(userMenus: any[], currentPath: string): any {
+// 映射路径和菜单的关系
+export function pathMapToMenu(
+  userMenus: any[],
+  currentPath: string,
+  breadcrumb?: IBreadcrumb[]
+): any {
   for (const menu of userMenus) {
     if (menu.type == 1) {
       const findMeny = pathMapToMenu(menu.children ?? [], currentPath)
+      if (findMeny) {
+        // 先放入type=1的元素(可以展开的菜单)name和path
+        breadcrumb?.push({ name: menu.name })
+        // 先再入type=2的元素(可以点击路由的菜单)name和path
+        breadcrumb?.push({ name: findMeny.name })
+      }
+
       if (findMeny) return findMeny
     } else if (menu.type == 2 && menu.url == currentPath) {
       return menu
     }
   }
 }
+
+// 声称面包屑路径
+export function pathMapToBreadcrumbs(
+  userMenus: any[],
+  currentPath: string
+): any {
+  const breadcrumb: IBreadcrumb[] = []
+
+  pathMapToMenu(userMenus, currentPath, breadcrumb)
+
+  return breadcrumb
+}
+
+// export function pathMapToBreadcrumbs(
+//   userMenus: any[],
+//   currentPath: string
+// ): any {
+//   const breadcrumb: IBreadcrumb[] = []
+
+//   for (const menu of userMenus) {
+//     if (menu.type == 1) {
+//       const findMeny = pathMapToMenu(menu.children ?? [], currentPath)
+//       // 先放入type=1的元素(可以展开的菜单)name和path
+//       breadcrumb.push({ name: menu.name, path: menu.url })
+//       // 先再入type=2的元素(可以点击路由的菜单)name和path
+//       breadcrumb.push({ name: findMeny.name, path: findMeny.url })
+
+//       if (findMeny) return findMeny
+//     } else if (menu.type == 2 && menu.url == currentPath) {
+//       return menu
+//     }
+//   }
+
+//   return breadcrumb
+// }
 
 export { firstMenu }

@@ -7,20 +7,27 @@
     </el-icon>
     <!-- 面包屑🍞和用户信息 -->
     <div class="content">
-      <div class="router">面包屑</div>
+      <div class="router">
+        <nav-breadcrumb :breadcrumb="breadcrumb"></nav-breadcrumb>
+      </div>
       <user-info></user-info>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 import UserInfo from './user-info.vue'
+import NavBreadcrumb, { IBreadcrumb } from '@/base-ui/breadcrumb'
+import { pathMapToBreadcrumbs } from '@/utils/map-menus'
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
   emits: ['flodChange'],
   components: {
-    UserInfo
+    UserInfo,
+    NavBreadcrumb
   },
   setup(props, { emit }) {
     const isFold = ref(false)
@@ -30,7 +37,27 @@ export default defineComponent({
       // 通过事件总线, 向父组件传递折叠/展开的事件
       emit('foldChange' as any, isFold.value as any)
     }
-    return { handleFoldClick, isFold }
+
+    // 面包屑数据
+    const store = useStore()
+
+    // const userMenus = store.state.login.userMenus
+    // const route = useRoute()
+    // const currentRoute = route.path
+    // const breadcrumb: IBreadcrumb[] = pathMapToBreadcrumbs(
+    //   userMenus,
+    //   currentRoute
+    // )
+
+    const breadcrumb = computed(() => {
+      const userMenus = store.state.login.userMenus
+      const route = useRoute()
+      const currentRoute = route.path
+
+      return pathMapToBreadcrumbs(userMenus, currentRoute)
+    })
+
+    return { handleFoldClick, isFold, breadcrumb }
   }
 })
 </script>
