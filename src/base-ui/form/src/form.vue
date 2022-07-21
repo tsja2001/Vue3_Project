@@ -2,6 +2,9 @@
 
 <template>
   <div class="hy-form">
+    <div class="header">
+      <slot name="header"></slot>
+    </div>
     <el-form :label-width="labelWidth">
       <el-row>
         <!-- 循环传入的每一项表单 -->
@@ -51,6 +54,9 @@
         </template>
       </el-row>
     </el-form>
+    <div class="footer">
+      <slot name="footer"></slot>
+    </div>
   </div>
 </template>
 
@@ -92,7 +98,9 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
+    // 对传来的双向绑定数据, 重新使用ref包裹, 不直接在表单中更改原数据
     const formData = ref({ ...props.modelValue })
+    // 监听包裹的数据, 发生改变时候, 使用emit传回数据
     watch(
       formData,
       (newValue) => {
