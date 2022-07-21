@@ -4,7 +4,9 @@ import {
   useStore as useVuexStore
 } from '../../node_modules/vuex'
 import { IRootState, IStoreType } from './types'
+
 import login from './login/login'
+import system from './main/system/system'
 
 const store = createStore<IRootState>({
   state() {
@@ -19,18 +21,11 @@ const store = createStore<IRootState>({
       state.age++
     }
   },
-  getters: {
-    // fn1(state, getters) {
-    //   console.log(state.name)
-    //   getters.fn2()
-    // },
-    // fn2(state, getters) {
-    //   console.log('fn2被调用')
-    // }
-  },
+  getters: {},
   actions: {},
   modules: {
-    login
+    login,
+    system
   }
 })
 
