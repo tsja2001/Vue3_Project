@@ -1,7 +1,11 @@
 type IFormType = 'input' | 'password' | 'select' | 'datepicker'
 
 export interface IFormItem {
+  // v-modal绑定的字段
+  field: string
+  // 表单左侧显示的内容
   lable: string
+  // 匹配规则
   rules?: any[]
   placeholder?: any
   type: IFormType
