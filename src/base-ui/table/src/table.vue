@@ -1,5 +1,17 @@
 <template>
   <div class="hy-table">
+    <!--
+      表格顶部显示的内容,
+      可以通过插槽自定义复杂内容的显示,
+      也可以直接传参显示简单文字
+    -->
+    <div class="header">
+      <h3 class="title">{{ title }}</h3>
+      <div class="handler">
+        <slot name="headerHandler"> </slot>
+      </div>
+    </div>
+    <!-- 表格主体 -->
     <el-table
       :data="data"
       border
@@ -30,6 +42,10 @@
         </el-table-column>
       </template>
     </el-table>
+    <!-- 表格最下面显示的内容 -->
+    <div class="footer">
+      <slot name="footer"></slot>
+    </div>
   </div>
 </template>
 
@@ -38,6 +54,11 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
+    title: {
+      type: String,
+      default: '',
+      required: false
+    },
     data: {
       type: Array,
       required: false
@@ -69,8 +90,32 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .hy-table {
   padding: 20px;
+}
+.header {
+  display: flex;
+  height: 45px;
+  padding: 0 5px;
+  justify-content: space-between;
+  align-items: center;
+
+  .title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .handler {
+    align-items: center;
+  }
+}
+
+.footer {
+  margin-top: 15px;
+
+  .el-pagination {
+    text-align: right;
+  }
 }
 </style>
