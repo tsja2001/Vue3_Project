@@ -1,7 +1,13 @@
 <template>
   <div class="user">
     <page-search :searchFormConfig="searchFormConfig"></page-search>
-    <hy-table :data="userList" :propList="propList">
+    <hy-table
+      :data="userList"
+      :propList="propList"
+      :showSelectColumn="showSelectColumn"
+      :showIndexColumn="showIndexColumn"
+      @selectionChange="selectionChange"
+    >
       <template #status="scope">
         <el-button
           size="small"
@@ -15,6 +21,22 @@
       </template>
       <template #updateAt="scope">
         <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
+      </template>
+      <template #handle>
+        <div class="handle-btns">
+          <el-button size="small" type="text" plain>
+            <el-icon>
+              <delete></delete>
+            </el-icon>
+            删除
+          </el-button>
+          <el-button size="small" type="text" plain>
+            <el-icon>
+              <edit></edit>
+            </el-icon>
+            编辑
+          </el-button>
+        </div>
       </template>
     </hy-table>
   </div>
@@ -60,6 +82,12 @@ export default defineComponent({
         label: '更新时间',
         minWidth: '90',
         slotName: 'updateAt'
+      },
+      {
+        // prop: 'updateAt',
+        label: '操作',
+        minWidth: '90',
+        slotName: 'handle'
       }
     ]
 
@@ -71,11 +99,25 @@ export default defineComponent({
       }
     })
 
+    // 配置表格是否显示select可选框
+    const showSelectColumn = true
+
+    // 配置表格是否显示序号
+    const showIndexColumn = true
+
+    // 获table组件中传来的择行行的事件
+    const selectionChange = (e: any) => {
+      console.log(e)
+    }
+
     return {
       searchFormConfig,
       userList,
       userCount,
-      propList
+      propList,
+      showIndexColumn,
+      showSelectColumn,
+      selectionChange
     }
   }
 })
