@@ -5,7 +5,7 @@
     <div class="header">
       <slot name="header"></slot>
     </div>
-    <el-form :label-width="labelWidth">
+    <el-form label-position="right">
       <el-row>
         <!-- 循环传入的每一项表单 -->
         <template v-for="item in formItems" :key="item.label">
@@ -16,6 +16,7 @@
               :label="item.lable"
               :rules="item.rules"
               :style="itemStyle"
+              :label-width="labelWidth"
             >
               <!-- 匹配每一项类型, 显示对应表单 -->
               <template
@@ -75,12 +76,12 @@ export default defineComponent({
     },
     labelWidth: {
       type: String,
-      default: '100px'
+      default: '180px'
     },
     itemStyle: {
       type: Object,
       default: () => ({
-        padding: '10px 40px'
+        padding: '10px 0px'
       })
     },
     colLayout: {
@@ -140,5 +141,12 @@ export default defineComponent({
 <style scoped lang="less">
 .hy-form {
   padding-top: 20px;
+  .form-item {
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+    justify-content: flex-start;
+    // width: 100%;
+  }
 }
 </style>

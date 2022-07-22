@@ -3,54 +3,49 @@ import { IForm } from '@/base-ui/form/types'
 export const searchFormConfig: IForm = {
   formItems: [
     {
-      field: 'id',
-      lable: 'id',
-      rules: [],
-      placeholder: '请输入id',
-      type: 'input'
-    },
-    {
       field: 'name',
       lable: '用户名',
-      rules: [],
       placeholder: '请输入用户名',
       type: 'input'
     },
     {
-      field: 'password',
-      lable: '密码',
-      rules: [],
-      placeholder: '请输入密码',
-      type: 'password'
+      field: 'realname',
+      lable: '真实姓名',
+      placeholder: '请输入真实姓名',
+      type: 'input'
     },
     {
-      field: 'sport',
-      lable: '运动',
-      rules: [],
-      placeholder: '请输入运动',
+      field: 'cellphone',
+      lable: '电话号码',
+      placeholder: '请输入电话号码',
+      type: 'input'
+    },
+    {
+      field: 'enable',
+      lable: '用户状态',
+      placeholder: '请输入选择用户状态',
       type: 'select',
       options: [
-        { title: '篮球', value: 'basketBall' },
-        { title: '足球', value: 'football' }
+        { title: '启用', value: 1 },
+        { title: '禁用', value: 0 }
       ]
     },
     {
-      field: 'createTime',
+      field: 'createAt',
       lable: '创建时间',
-      rules: [],
       type: 'datepicker',
       otherOptions: {
-        'start-placeholder': '请输入开始时间',
-        'end-placeholder': '请输入结束时间',
+        'start-placeholder': '开始时间',
+        'end-placeholder': '结束时间',
         type: 'daterange'
       }
     }
   ],
   // 设置form组件中的lable(表单左侧的文字)
-  labelWidth: '120px',
+  labelWidth: '100px',
   // 设置form组件中每个表单的样式
   itemStyle: {
-    padding: '20px 60px'
+    padding: '20px 20px'
   },
   // 设置响应式布局
   colLayout: {

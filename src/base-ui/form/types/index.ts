@@ -12,7 +12,7 @@ export interface IFormItem {
   // 针对select
   options?: {
     title: string
-    value: string
+    value: string | number
   }[]
   // 针对其他的属性
   otherOptions?: any

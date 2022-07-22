@@ -76,13 +76,18 @@ export default defineComponent({
     const store = useStore()
 
     // 请求对应数据
-    store.dispatch('system/getPageListAction', {
-      pageName: props.pageName,
-      queryInfo: {
-        offset: 0,
-        size: 10
-      }
-    })
+    const getPageData = (queryInfo: any = {}) => {
+      store.dispatch('system/getPageListAction', {
+        pageName: props.pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10,
+          ...queryInfo
+        }
+      })
+    }
+
+    getPageData()
 
     // 拿到对应数据
     const dataList = computed(() =>
@@ -92,7 +97,8 @@ export default defineComponent({
     console.log(dataList)
 
     return {
-      dataList
+      dataList,
+      getPageData
     }
   }
 })
