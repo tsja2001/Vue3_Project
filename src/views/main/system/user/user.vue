@@ -3,10 +3,18 @@
     <page-search :searchFormConfig="searchFormConfig"></page-search>
     <hy-table :data="userList" :propList="propList">
       <template #status="scope">
-        <el-button>{{ scope.row.enable == 1 ? '启用' : '禁用' }}</el-button>
+        <el-button
+          size="small"
+          :type="scope.row.enable ? 'success' : 'danger'"
+          plain
+          >{{ scope.row.enable == 1 ? '启用' : '禁用' }}</el-button
+        >
       </template>
       <template #createAt="scope">
-        <strong>{{ scope.row.createAt }}</strong>
+        <span>{{ $filters.formatTime(scope.row.createAt) }}</span>
+      </template>
+      <template #updateAt="scope">
+        <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
       </template>
     </hy-table>
   </div>
@@ -44,13 +52,13 @@ export default defineComponent({
       {
         prop: 'createAt',
         label: '创建时间',
-        minWidth: '150',
+        minWidth: '90',
         slotName: 'createAt'
       },
       {
         prop: 'updateAt',
         label: '更新时间',
-        minWidth: '150',
+        minWidth: '90',
         slotName: 'updateAt'
       }
     ]

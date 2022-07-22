@@ -11,6 +11,8 @@ import 'normalize.css'
 import './assets/css/index.less'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import { setupStore } from './store'
+import { registerProperties } from './global/register-properties'
+import { globalRegister } from './global'
 
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -20,6 +22,9 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 app.use(store)
 setupStore()
 app.use(router)
-// 初始化store中token, 用户数据, 用户菜单...数据
+// 注册全局属性
+app.use(globalRegister)
+
+// registerProperties(app)
 
 app.mount('#app')
