@@ -7,3 +7,10 @@ export function getPageListData(url: string, queryInfo: any): any {
     data: queryInfo
   })
 }
+
+// 删除数据, 传入格式: /users/id
+export function deletePageData(url: string) {
+  return hyRequest.delete<IDataType>({
+    url: url
+  })
+}

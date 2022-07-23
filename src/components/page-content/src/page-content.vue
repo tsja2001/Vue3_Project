@@ -37,9 +37,15 @@
       <template #updateAt="scope">
         <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
       </template>
-      <template #handle>
+      <template #handle="scope">
         <div class="handle-btns">
-          <el-button v-if="isDelete" size="small" type="text" plain>
+          <el-button
+            v-if="isDelete"
+            size="small"
+            type="text"
+            plain
+            @click="handleDeleteClick(scope.row)"
+          >
             <el-icon>
               <delete></delete>
             </el-icon>
@@ -144,6 +150,14 @@ export default defineComponent({
       }
     )
 
+    // 删除操作(41)
+    const handleDeleteClick = (item: any) => {
+      store.dispatch('system/deletePageData', {
+        pageName: props.pageName,
+        id: item.id
+      })
+    }
+
     return {
       dataList,
       getPageData,
@@ -152,7 +166,8 @@ export default defineComponent({
       otherPropSlots,
       isCreate,
       isUpdate,
-      isDelete
+      isDelete,
+      handleDeleteClick
     }
   }
 })

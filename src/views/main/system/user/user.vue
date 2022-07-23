@@ -12,6 +12,7 @@
       pageName="users"
       ref="pageContentRef"
     ></page-content>
+    <page-modal :modalConfig="modalConfig"></page-modal>
   </div>
 </template>
 
@@ -22,12 +23,14 @@ import PageSearch from '@/components/page-search'
 import { contentTableConfig } from './config/content.config'
 import PageContent from '@/components/page-content'
 import { getPageData } from '@/hooks/usePageSearch'
+import { modalConfig } from './config/modal.config'
+import PageModal from '@/components/page-modal'
 
 export default defineComponent({
-  name: 'user',
   components: {
     PageSearch,
-    PageContent
+    PageContent,
+    PageModal
   },
   setup() {
     const [pageContentRef, resetBtnClick, queryBtnClick] = getPageData()
@@ -37,7 +40,8 @@ export default defineComponent({
       contentTableConfig,
       pageContentRef,
       resetBtnClick,
-      queryBtnClick
+      queryBtnClick,
+      modalConfig
     }
   }
 })

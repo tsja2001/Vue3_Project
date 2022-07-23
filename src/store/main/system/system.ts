@@ -1,4 +1,4 @@
-import { getPageListData } from '@/service/main/system/system'
+import { getPageListData, deletePageData } from '@/service/main/system/system'
 import { IRootState } from '@/store/types'
 import { Module } from 'vuex'
 import { ISystemState } from './types'
@@ -77,6 +77,22 @@ const systemModule: Module<ISystemState, IRootState> = {
 
       commit(`change${changePageName}List`, list)
       commit(`change${changePageName}Count`, totalCount)
+    },
+
+    async deletePageData({ dispatch }, payload: any) {
+      // 拼接url
+      const { pageName, id } = payload
+      const pageUrl = `/${pageName}/${id}`
+      // 删除数据
+      await deletePageData(pageUrl)
+      // 重新请求最新数据
+      dispatch('getPageListAction', {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10
+        }
+      })
     }
   }
 }
