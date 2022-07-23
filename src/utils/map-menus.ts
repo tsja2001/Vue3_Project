@@ -73,27 +73,22 @@ export function pathMapToBreadcrumbs(
   return breadcrumb
 }
 
-// export function pathMapToBreadcrumbs(
-//   userMenus: any[],
-//   currentPath: string
-// ): any {
-//   const breadcrumb: IBreadcrumb[] = []
-
-//   for (const menu of userMenus) {
-//     if (menu.type == 1) {
-//       const findMeny = pathMapToMenu(menu.children ?? [], currentPath)
-//       // 先放入type=1的元素(可以展开的菜单)name和path
-//       breadcrumb.push({ name: menu.name, path: menu.url })
-//       // 先再入type=2的元素(可以点击路由的菜单)name和path
-//       breadcrumb.push({ name: findMeny.name, path: findMeny.url })
-
-//       if (findMeny) return findMeny
-//     } else if (menu.type == 2 && menu.url == currentPath) {
-//       return menu
-//     }
-//   }
-
-//   return breadcrumb
-// }
-
 export { firstMenu }
+
+export function mapMenusToPermissions(userMenus: any[]): any[] {
+  const permissions: string[] = []
+
+  const _recurseGetPermission = (userMenus: any[]) => {
+    for (const menu of userMenus) {
+      if (menu.type === 1 || menu.type === 2) {
+        _recurseGetPermission(menu.children ?? [])
+      } else if (menu.type === 3) {
+        permissions.push(menu.permission)
+      }
+    }
+  }
+
+  _recurseGetPermission(userMenus)
+
+  return permissions
+}

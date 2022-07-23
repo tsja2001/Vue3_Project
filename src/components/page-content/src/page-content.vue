@@ -9,7 +9,7 @@
     >
       <!-- 自定义顶部的显示 -->
       <template #headerHandler>
-        <el-button type="primary">
+        <el-button type="primary" v-if="isCreate">
           <el-icon>
             <plus></plus>
           </el-icon>
@@ -39,13 +39,13 @@
       </template>
       <template #handle>
         <div class="handle-btns">
-          <el-button size="small" type="text" plain>
+          <el-button v-if="isDelete" size="small" type="text" plain>
             <el-icon>
               <delete></delete>
             </el-icon>
             删除
           </el-button>
-          <el-button size="small" type="text" plain>
+          <el-button v-if="isUpdate" size="small" type="text" plain>
             <el-icon>
               <edit></edit>
             </el-icon>
@@ -75,6 +75,7 @@
 import { useStore } from '@/store'
 import { computed, defineComponent, ref, watch } from 'vue'
 import HyTable from '@/base-ui/table'
+import { usePermission } from '@/hooks/usePermissions'
 
 export default defineComponent({
   props: {
@@ -93,6 +94,12 @@ export default defineComponent({
   setup(props: any) {
     const store = useStore()
 
+    // 40 获取操作的权限
+    const isCreate = usePermission(props.pageName, 'create')
+    const isUpdate = usePermission(props.pageName, 'update')
+    const isDelete = usePermission(props.pageName, 'delete')
+    const isQuery = usePermission(props.pageName, 'query')
+
     // 40 双向绑定pageInfo分页信息, 用于底部跳转导航栏定位
     const pageInfo = ref({ currentPage: 0, pageSize: 10 })
 
@@ -101,7 +108,8 @@ export default defineComponent({
 
     // 请求对应数据
     const getPageData = (queryInfo: any = {}) => {
-      console.log(pageInfo.value.pageSize, pageInfo.value.currentPage)
+      // 若无权限, 则不发请求
+      if (!isQuery) return
       store.dispatch('system/getPageListAction', {
         pageName: props.pageName,
         queryInfo: {
@@ -141,7 +149,10 @@ export default defineComponent({
       getPageData,
       dataCount,
       pageInfo,
-      otherPropSlots
+      otherPropSlots,
+      isCreate,
+      isUpdate,
+      isDelete
     }
   }
 })
