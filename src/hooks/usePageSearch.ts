@@ -6,11 +6,11 @@ export function getPageData(queryInfo: any = {}) {
   const pageContentRef = ref<InstanceType<typeof PageContent>>()
 
   // 搜素组件点击重置搜索
-  const resetBtnClick = () => {
+  const resetBtnClick = (): void => {
     pageContentRef.value?.getPageData()
   }
   // 搜素组件点击搜索
-  const queryBtnClick = (queryInfo: any) => {
+  const queryBtnClick = (queryInfo: any): void => {
     pageContentRef.value?.getPageData(queryInfo)
   }
 

@@ -1,6 +1,12 @@
 <template>
   <div class="page-content">
-    <hy-table :data="dataList" v-bind="contentTableConfig" class="hy-table">
+    <hy-table
+      :data="dataList"
+      :listCount="dataCount"
+      v-bind="contentTableConfig"
+      class="hy-table"
+      v-model:page="pageInfo"
+    >
       <!-- 自定义顶部的显示 -->
       <template #headerHandler>
         <el-button type="primary">
@@ -55,7 +61,7 @@
 
 <script lang="ts">
 import { useStore } from '@/store'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, ref, watch } from 'vue'
 import HyTable from '@/base-ui/table'
 
 export default defineComponent({
@@ -75,13 +81,21 @@ export default defineComponent({
   setup(props: any) {
     const store = useStore()
 
+    // 40 双向绑定pageInfo分页信息, 用于底部跳转导航栏定位
+    const pageInfo = ref({ currentPage: 0, pageSize: 10 })
+
+    // 40 监听传入table组件中的pageInfo数据, 发生改变时重新请求数据
+    watch(pageInfo, () => getPageData())
+
     // 请求对应数据
     const getPageData = (queryInfo: any = {}) => {
+      console.log(pageInfo.value.pageSize, pageInfo.value.currentPage)
       store.dispatch('system/getPageListAction', {
         pageName: props.pageName,
         queryInfo: {
-          offset: 0,
-          size: 10,
+          // 动态处理分页信息
+          offset: pageInfo.value.pageSize * pageInfo.value.currentPage,
+          size: pageInfo.value.pageSize,
           ...queryInfo
         }
       })
@@ -94,11 +108,15 @@ export default defineComponent({
       store.getters['system/pageListData'](props.pageName)
     )
 
-    console.log(dataList)
+    const dataCount = computed(() =>
+      store.getters['system/pageListCount'](props.pageName)
+    )
 
     return {
       dataList,
-      getPageData
+      getPageData,
+      dataCount,
+      pageInfo
     }
   }
 })

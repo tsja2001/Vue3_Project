@@ -28,16 +28,16 @@ const systemModule: Module<ISystemState, IRootState> = {
     }
   },
   getters: {
+    // 用于pageContent页面获取pagelist
     pageListData(state) {
       return (pageName: string) => {
         return (state as any)[`${pageName}List`]
-        // ⬆️含义等价于⬇️
-        // switch (pageName) {
-        //   case 'users':
-        //     return state.usersList
-        //   case 'role':
-        //     return state.roleList
-        // }
+      }
+    },
+    // 用于pageContent页面获取lictCount
+    pageListCount(state) {
+      return (pageName: string) => {
+        return (state as any)[`${pageName}Count`]
       }
     }
   },
