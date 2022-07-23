@@ -17,6 +17,7 @@
       border
       style="width: 100%"
       @selection-change="handleSelectionChange"
+      v-bind="childrenProps"
     >
       <el-table-column
         v-if="showSelectColumn"
@@ -43,7 +44,7 @@
       </template>
     </el-table>
     <!-- 表格最下面显示的内容 -->
-    <div class="footer">
+    <div class="footer" v-if="showFooter">
       <el-pagination
         :currentPage="page.currentPage + 1"
         :page-size="page.pageSize"
@@ -95,6 +96,16 @@ export default defineComponent({
         currentPage: 0,
         pageSize: 10
       })
+    },
+    // 可以展开的子元素
+    childrenProps: {
+      type: Object,
+      default: () => ({})
+    },
+    // 是否展示底部分页器
+    showFooter: {
+      type: Boolean,
+      default: true
     }
   },
   emits: ['selectionChange', 'update:page'],

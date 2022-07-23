@@ -131,7 +131,7 @@ export default defineComponent({
         if (item.slotName == 'status') return false
         if (item.slotName == 'createAt') return false
         if (item.slotName == 'upDateAt') return false
-        if (item.slotName == 'handler') return false
+        if (item.slotName == 'handle') return false
         return true
       }
     )

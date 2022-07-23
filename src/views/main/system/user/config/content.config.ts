@@ -28,7 +28,6 @@ export const contentTableConfig = {
       slotName: 'updateAt'
     },
     {
-      // prop: 'updateAt',
       label: '操作',
       minWidth: '90',
       slotName: 'handle'
