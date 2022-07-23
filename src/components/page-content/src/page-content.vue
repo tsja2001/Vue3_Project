@@ -9,7 +9,7 @@
     >
       <!-- 自定义顶部的显示 -->
       <template #headerHandler>
-        <el-button type="primary" v-if="isCreate">
+        <el-button type="primary" v-if="isCreate" @click="handleNewClick">
           <el-icon>
             <plus></plus>
           </el-icon>
@@ -51,7 +51,13 @@
             </el-icon>
             删除
           </el-button>
-          <el-button v-if="isUpdate" size="small" type="text" plain>
+          <el-button
+            v-if="isUpdate"
+            size="small"
+            type="text"
+            plain
+            @click="handleEditClick(scope.row)"
+          >
             <el-icon>
               <edit></edit>
             </el-icon>
@@ -82,6 +88,7 @@ import { useStore } from '@/store'
 import { computed, defineComponent, ref, watch } from 'vue'
 import HyTable from '@/base-ui/table'
 import { usePermission } from '@/hooks/usePermissions'
+import { emit } from 'process'
 
 export default defineComponent({
   props: {
@@ -97,7 +104,8 @@ export default defineComponent({
   components: {
     HyTable
   },
-  setup(props: any) {
+  emits: ['newBtnClick', 'editBtnClick'],
+  setup(props: any, { emit }) {
     const store = useStore()
 
     // 40 获取操作的权限
@@ -158,6 +166,16 @@ export default defineComponent({
       })
     }
 
+    // 点击新增用户(41)
+    const handleNewClick = () => {
+      emit('newBtnClick')
+    }
+
+    // 点击编辑用户(41)
+    const handleEditClick = (item: any) => {
+      emit('editBtnClick', item)
+    }
+
     return {
       dataList,
       getPageData,
@@ -167,7 +185,9 @@ export default defineComponent({
       isCreate,
       isUpdate,
       isDelete,
-      handleDeleteClick
+      handleDeleteClick,
+      handleNewClick,
+      handleEditClick
     }
   }
 })
