@@ -53,6 +53,18 @@
           </el-button>
         </div>
       </template>
+
+      <!-- 配置动态插槽, 动态插入剩余的插槽 -->
+      <template
+        v-for="item in otherPropSlots"
+        :key="item.prop"
+        #[item.slotName]="scope"
+      >
+        <template v-if="item.slotName">
+          <slot :name="item.slotName" :row="scope.row"> </slot>
+        </template>
+      </template>
+
       <!-- 自定义表格上面footer显示的内容 -->
       <template #footer> 芜湖 </template>
     </hy-table>
@@ -112,11 +124,24 @@ export default defineComponent({
       store.getters['system/pageListCount'](props.pageName)
     )
 
+    // 获取其他动态插槽, 实现插槽跨组件传递. 父组件 -> pageContent -> hy-table
+    // 过滤掉公共插槽, 拿到特有插槽
+    const otherPropSlots = props.contentTableConfig?.propList.filter(
+      (item: any) => {
+        if (item.slotName == 'status') return false
+        if (item.slotName == 'createAt') return false
+        if (item.slotName == 'upDateAt') return false
+        if (item.slotName == 'handler') return false
+        return true
+      }
+    )
+
     return {
       dataList,
       getPageData,
       dataCount,
-      pageInfo
+      pageInfo,
+      otherPropSlots
     }
   }
 })
