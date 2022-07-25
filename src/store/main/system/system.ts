@@ -1,4 +1,9 @@
-import { getPageListData, deletePageData } from '@/service/main/system/system'
+import {
+  getPageListData,
+  deletePageData,
+  createPageData,
+  editPageData
+} from '@/service/main/system/system'
 import { IRootState } from '@/store/types'
 import { Module } from 'vuex'
 import { ISystemState } from './types'
@@ -79,6 +84,7 @@ const systemModule: Module<ISystemState, IRootState> = {
       commit(`change${changePageName}Count`, totalCount)
     },
 
+    // 删除
     async deletePageData({ dispatch }, payload: any) {
       // 拼接url
       const { pageName, id } = payload
@@ -94,8 +100,42 @@ const systemModule: Module<ISystemState, IRootState> = {
           size: 10
         }
       })
+    },
+
+    // 新建
+    async createPageDataAction({ dispatch }, payload: any) {
+      const { pageName, newData } = payload
+      const pageUrl = `/${pageName}`
+      await createPageData(pageUrl, newData)
+      // 请求最新数据
+      dispatch('getPageListAction', {
+        pageName,
+        // todo 更改: 如果用户不在第0页, 或者改变了分页大小, 重新请求的数据继续使用原来的参数
+        queryInfo: {
+          offset: 0,
+          size: 10
+        }
+      })
+    },
+
+    // 编辑
+    async editPageDataAction({ dispatch }, payload: any) {
+      const { pageName, editData, id } = payload
+      const pageUrl = `/${pageName}/${id}`
+      await editPageData(pageUrl, editData)
+      // 请求最新数据
+      dispatch('getPageListAction', {
+        pageName,
+        // todo 更改: 如果用户不在第0页, 或者改变了分页大小, 重新请求的数据继续使用原来的参数
+        queryInfo: {
+          offset: 0,
+          size: 10
+        }
+      })
     }
   }
+
+  // 编辑
 }
 
 export default systemModule

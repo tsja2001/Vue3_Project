@@ -7,13 +7,12 @@
       center
       destroy-on-close
     >
-      <hy-form v-bind="modalConfig" :modelValue="formData"></hy-form>
+      <!-- <hy-form v-bind="modalConfig" :modelValue="formData"></hy-form> -->
+      <hy-form v-bind="modalConfig" v-model="formData"></hy-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">Cancel</el-button>
-          <el-button type="primary" @click="dialogVisible = false"
-            >Confirm</el-button
-          >
+          <el-button @click="dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="handleConfirmClick">确定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -22,8 +21,8 @@
 
 <script lang="ts">
 import HyForm from '@/base-ui/form/src/form.vue'
-import { forEach } from 'lodash'
 import { defineComponent, ref, watch } from 'vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   props: {
@@ -36,6 +35,11 @@ export default defineComponent({
     defaultInfo: {
       type: Object,
       default: () => ({})
+    },
+    // 页面名称(用于匹配url)
+    pageName: {
+      type: String,
+      required: true
     }
   },
   components: {
@@ -54,15 +58,36 @@ export default defineComponent({
       () => props.defaultInfo,
       (newValue) => {
         for (const item of props.modalConfig!.formItems) {
-          formData.value[`${item.field}`] = newValue[`${item.field}`]
+          formData.value[`${item.field}`] = newValue[`${item.field}`] ?? ''
         }
-        console.log(formData.value)
       }
     )
 
+    // 监听点击确定按钮
+    const store = useStore()
+    const handleConfirmClick = () => {
+      dialogVisible.value = false
+      // 判断当时是新建还是编辑
+      if (Object.keys(props.defaultInfo).length) {
+        // 编辑
+        store.dispatch('system/editPageDataAction', {
+          pageName: props.pageName,
+          editData: { ...formData.value },
+          id: props.defaultInfo.id
+        })
+      } else {
+        // 新建
+        store.dispatch('system/createPageDataAction', {
+          pageName: props.pageName,
+          newData: { ...formData.value }
+        })
+      }
+    }
+
     return {
       dialogVisible,
-      formData
+      formData,
+      handleConfirmClick
     }
   }
 })

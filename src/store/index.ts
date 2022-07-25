@@ -29,7 +29,6 @@ const store = createStore<IRootState>({
       state.entrieDepartment = list
     },
     changeEntireRole(state, list) {
-      console.log(list)
       state.entrieRole = list
     }
   },
