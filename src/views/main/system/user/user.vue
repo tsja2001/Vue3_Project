@@ -31,6 +31,7 @@ import PageContent from '@/components/page-content'
 import { getPageData } from '@/hooks/usePageSearch'
 import { modalConfig } from './config/modal.config'
 import PageModal from '@/components/page-modal'
+import { usePageModal } from '@/hooks/usePageModal'
 
 export default defineComponent({
   components: {
@@ -41,27 +42,26 @@ export default defineComponent({
   setup() {
     const [pageContentRef, resetBtnClick, queryBtnClick] = getPageData()
 
-    // 拿到modal组件, 用来控制其是否显示
-    const pageModalRef = ref<InstanceType<typeof PageModal>>()
+    // 41. 要实现在显示编辑modal时, 隐藏form中的密码; 显示新建modal时, 显示form中的密码
+    // 换言之, 要更改modal.config.js中密码的 isHidden属性 => 对hooks使用会掉函数解决
 
-    // 用于保存表格数据, 用于在点开编辑时, 显示对应表格的数据
-    const defaultInfo = ref({})
+    const newCallBack = () => {
+      const passwordItem = modalConfig.formItems.find(
+        (item) => item.field == 'password'
+      )
 
-    // 监听pagecontent组件点击编辑
-    const handleEditData = (item: any) => {
-      // 保存点击的那一行表格的数据
-      defaultInfo.value = { ...item }
-      if (pageModalRef.value) {
-        pageModalRef.value.dialogVisible = true
-      }
+      passwordItem!.isHidden = false
     }
 
-    // 监听pagecontent组件点击新建
-    const handleNewData = () => {
-      if (pageModalRef.value) {
-        pageModalRef.value.dialogVisible = true
-      }
+    const editCallBack = () => {
+      const passwordItem = modalConfig.formItems.find(
+        (item) => item.field == 'password'
+      )
+      passwordItem!.isHidden = true
     }
+
+    const [pageModalRef, defaultInfo, handleEditData, handleNewData] =
+      usePageModal(newCallBack, editCallBack)
 
     return {
       searchFormConfig,

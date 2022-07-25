@@ -12,6 +12,7 @@
           <!-- 对布局使用传入colLayout, 可以指定布局方式: 是否响应式 -->
           <el-col v-bind="colLayout">
             <el-form-item
+              v-if="!item.isHidden"
               class="form-item"
               :label="item.lable"
               :rules="item.rules"

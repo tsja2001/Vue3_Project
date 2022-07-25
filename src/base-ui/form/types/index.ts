@@ -16,6 +16,8 @@ export interface IFormItem {
   }[]
   // 针对其他的属性
   otherOptions?: any
+  // 是否隐藏显示此条
+  isHidden?: boolean
 }
 
 export interface IForm {

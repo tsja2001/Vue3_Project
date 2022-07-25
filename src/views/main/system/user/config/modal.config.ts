@@ -16,7 +16,9 @@ export const modalConfig = {
       field: 'password',
       lable: '密码',
       placeholder: '请输入电话号码',
-      type: 'password'
+      type: 'password',
+      // 需要在编辑时, 隐藏密码;新建时, 显示密码
+      isHidden: true
     },
     {
       field: 'cellphone',
