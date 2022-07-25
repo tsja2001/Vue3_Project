@@ -110,21 +110,22 @@ export default defineComponent({
   },
   emits: ['selectionChange', 'update:page'],
   setup(props, { emit }) {
-    // 选中事件, 通过事件总线向父组件传递事件
+    // 选中list的行事件, 通过事件总线向父组件传递事件
     const handleSelectionChange = (value: any) => {
       emit('selectionChange', value)
     }
 
+    // 底部分页器选择事件
+    // 底部分页器分页大小选择事件
     const handleSizeChange = (pageSize: number) => {
       // 因为使用了v-model双向绑定绑定了分页数据, 并起别名page
-      // 所以传入变量为page, 穿出事件为update:page
+      // 所以传入变量为page, 传出事件为update:page
       // (默认为 modelValue和update:modelValue)
-      console.log('pageSize', pageSize)
       emit('update:page', { ...props.page, pageSize })
     }
+    // 底部分页器页码选择事件
     const handleCurrentChange = (currentPage: number) => {
       currentPage = currentPage - 1
-      console.log('currentPage', currentPage)
       emit('update:page', { ...props.page, currentPage })
     }
 

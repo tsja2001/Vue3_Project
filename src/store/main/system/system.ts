@@ -88,6 +88,7 @@ const systemModule: Module<ISystemState, IRootState> = {
       // 重新请求最新数据
       dispatch('getPageListAction', {
         pageName,
+        // todo 更改: 如果用户不在第0页, 或者改变了分页大小, 重新请求的数据继续使用原来的参数
         queryInfo: {
           offset: 0,
           size: 10
