@@ -13,7 +13,9 @@
       </div>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item icon="CircleClose"> 退出登录 </el-dropdown-item>
+          <el-dropdown-item @click="handleExitClick" icon="CircleClose">
+            退出登录
+          </el-dropdown-item>
           <el-dropdown-item divided>用户信息</el-dropdown-item>
           <el-dropdown-item>系统管理</el-dropdown-item>
         </el-dropdown-menu>
@@ -26,6 +28,8 @@
 import { computed } from '@vue/reactivity'
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
+import loaclCache from '@/utils/caches'
+import router from '@/router'
 
 export default defineComponent({
   setup() {
@@ -33,8 +37,15 @@ export default defineComponent({
     // 通过计算属性, 绑定用户名的显示
     const name = computed(() => store.state.login.userInfo.name)
 
+    // 点击退出
+    const handleExitClick = () => {
+      loaclCache.deleteCache('token')
+      router.push('/main')
+    }
+
     return {
-      name
+      name,
+      handleExitClick
     }
   }
 })
