@@ -26,5 +26,6 @@ module.exports = {
     'eslint@typescript-eslint/explicit-module-boundary-types': 'off',
     'vue/no-mutating-props': 'off',
     'vue/no-dupe-keys': 'off',
+    "eslint@typescript-eslint/no-non-null-assertion": "off"
   }
 }
