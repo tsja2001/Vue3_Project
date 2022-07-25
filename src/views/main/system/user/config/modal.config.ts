@@ -25,6 +25,26 @@ export const modalConfig = {
       lable: '电话号码',
       placeholder: '请输入电话号码',
       type: 'input'
+    },
+    {
+      field: 'departmentId',
+      lable: '部门',
+      placeholder: '请选择部门',
+      type: 'select',
+      options: [
+        { title: '启用', value: 1 },
+        { title: '禁用', value: 0 }
+      ]
+    },
+    {
+      field: 'roleId',
+      lable: '角色',
+      placeholder: '请选择角色',
+      type: 'select',
+      options: [
+        { title: '启用', value: 1 },
+        { title: '禁用', value: 0 }
+      ]
     }
   ],
   colLayout: {
