@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import PageModal from '@/components/page-modal'
 
-type callBackFn = () => void
+type callBackFn = (item?: any) => void
 
 export function usePageModal(newCb?: callBackFn, editCb?: callBackFn): any {
   // 拿到modal组件, 用来控制其是否显示
@@ -28,9 +28,7 @@ export function usePageModal(newCb?: callBackFn, editCb?: callBackFn): any {
       pageModalRef.value.dialogVisible = true
     }
 
-    console.log(item)
-
-    editCb && editCb()
+    editCb && editCb(item)
   }
 
   return [pageModalRef, defaultInfo, handleEditData, handleNewData]

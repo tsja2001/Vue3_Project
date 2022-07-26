@@ -92,3 +92,23 @@ export function mapMenusToPermissions(userMenus: any[]): any[] {
 
   return permissions
 }
+
+// 拿到菜单list中叶子结点
+export function getMenuLeafKeys(menuList: any[]): any {
+  const leafKeys: number[] = []
+
+  const mapFn = (list: any[]) => {
+    list.forEach((item: any) => {
+      // if (item.id != null) {
+      if (item.children == null) {
+        leafKeys.push(item.id)
+      } else {
+        mapFn(item.children)
+      }
+    })
+  }
+
+  mapFn(menuList)
+
+  return leafKeys
+}
