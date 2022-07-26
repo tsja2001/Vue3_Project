@@ -1,7 +1,24 @@
 <template>
   <div class="dashboard">
-    11
-    <div ref="divRef" :style="{ width: '300px', height: ' 300px' }"></div>
+    <el-row :gutter="10">
+      <el-col :span="7">
+        <el-card header="芜湖"></el-card>
+      </el-col>
+      <el-col :span="10">
+        <el-card header="芜湖"></el-card>
+      </el-col>
+      <el-col :span="7">
+        <el-card header="芜湖"></el-card>
+      </el-col>
+    </el-row>
+    <el-row :gutter="10" class="content-row">
+      <el-col :span="12">
+        <el-card header="芜湖"></el-card>
+      </el-col>
+      <el-col :span="12">
+        <el-card header="芜湖"></el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -20,4 +37,8 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.content-row {
+  margin-top: 20px;
+}
+</style>

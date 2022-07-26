@@ -99,6 +99,6 @@ export default defineComponent({
   background-color: #f0f2f5;
 }
 .page-info {
-  background-color: white;
+  // background-color: white;
 }
 </style>
