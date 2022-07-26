@@ -28,6 +28,8 @@ export function usePageModal(newCb?: callBackFn, editCb?: callBackFn): any {
       pageModalRef.value.dialogVisible = true
     }
 
+    console.log(item)
+
     editCb && editCb()
   }
 

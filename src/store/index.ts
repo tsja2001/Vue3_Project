@@ -18,7 +18,9 @@ const store = createStore<IRootState>({
       // 保存部门数据
       entrieDepartment: [],
       // 保存角色数据
-      entrieRole: []
+      entrieRole: [],
+      // 保存菜单数据
+      entrieMenu: []
     }
   },
   mutations: {
@@ -30,6 +32,9 @@ const store = createStore<IRootState>({
     },
     changeEntireRole(state, list) {
       state.entrieRole = list
+    },
+    changeEntireMenu(state, list) {
+      state.entrieMenu = list
     }
   },
   getters: {},
@@ -48,10 +53,13 @@ const store = createStore<IRootState>({
         size: 1000
       })
       const { list: roleList } = roleRes.data
-
+      // 3. 请求菜单数据
+      const menuResult = await getPageListData('/menu/list', {})
+      const { list: menuList } = menuResult.data
       // 3. 保存数据
       commit('changeEntireDepartment', departmentList)
       commit('changeEntireRole', roleList)
+      commit('changeEntireMenu', menuList)
     }
   },
   modules: {
