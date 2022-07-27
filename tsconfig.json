@@ -38,5 +38,9 @@
     "tests/**/*.tsx"
   ],
   // 哪些文件不被解析
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  // "noImplicitAny": false,
+  // "allowJs": true
+  "noImplicitAny": false,
+  "allowJs": true
 }
