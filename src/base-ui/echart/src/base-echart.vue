@@ -11,7 +11,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref, defineProps, watchEffect } from 'vue'
 import * as echarts from 'echarts'
-import { EChartsOption } from 'echarts'
+import { EChartsOption, ECharts } from 'echarts'
 import useEcharts from '../hooks/uesEchar'
 export default defineComponent({
   props: {
@@ -28,11 +28,12 @@ export default defineComponent({
       required: true
     }
   },
+  emits: ['onEchatInit'],
   setup(props, { emit }) {
     const echartDivRef = ref<HTMLElement>()
     onMounted(() => {
-      const { setOptions } = useEcharts(echartDivRef.value!)
-
+      const { setOptions, echartInstance } = useEcharts(echartDivRef.value!)
+      emit('onEchatInit', echartInstance)
       watchEffect(() => {
         setOptions(props.option)
       })

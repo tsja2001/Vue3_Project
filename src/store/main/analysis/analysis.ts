@@ -45,13 +45,6 @@ const dashboardModel: Module<IDashboardState, IRootState> = {
 
       const addressGoodsSale = await getAddressGoodsSale()
       commit('changeAddressGoodsFavor', addressGoodsSale.data)
-
-      console.log(
-        categoryGoodsCount,
-        categoryGoodsSale,
-        categoryGoodsFavor,
-        addressGoodsSale
-      )
     }
   }
 }
