@@ -5,4 +5,7 @@ declare module '*.vue' {
   export default component
 }
 
+declare
+$store: any
+
 declare let $store: any
