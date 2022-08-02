@@ -1,25 +1,29 @@
 <template>
-  <el-config-provider :locale="zhCn">
+  <div class="app">
+    {{ $store.state.name }}
+    <router-link to="/login">登录</router-link>
+    <router-link to="/main">首页</router-link>
     <router-view></router-view>
-  </el-config-provider>
+    <el-button>芜湖</el-button>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { ElConfigProvider } from 'element-plus'
-import { zhCn } from 'element-plus/lib/locale'
-// import TestsMain from './views/tests/tests-main.vue'
+
 export default defineComponent({
-  components: {
-    ElConfigProvider
-  },
   name: 'App',
-  setup() {
-    return {
-      zhCn
-    }
-  }
+  components: {}
 })
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
