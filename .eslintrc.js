@@ -26,6 +26,8 @@ module.exports = {
     'eslint@typescript-eslint/no-var-requires': 'off',
     'eslint@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    'eslintprettier/prettier': 'off'
+    'eslintprettier/prettier': 'off',
+    'eslint@typescript-eslint/explicit-module-boundary-types':
+      'off'
   }
 }

@@ -2,7 +2,10 @@
   <div class="login">
     <!-- 登陆表单 -->
     <div class="login_box">
-      <h2 class="title">后台管理系统</h2>
+      <h2 class="title">
+        <div class="title_text">商品</div>
+        <div>管理系统</div>
+      </h2>
       <el-tabs class="tabs" v-model="tab">
         <el-tab-pane name="account">
           <template #label>
@@ -112,11 +115,12 @@ export default defineComponent({
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color: #ffffff;
     border-radius: 5px;
     padding: 0px 20px 20px 20px;
     .title {
       color: #0f276a;
+      display: flex;
     }
     .tabs {
       width: 400px;

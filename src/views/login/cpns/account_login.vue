@@ -66,7 +66,9 @@ export default defineComponent({
           // store.dispatch('login/accountLoginAction', {
           //   ...loginData
           // })
-          store.dispatch('login/accountLoginAction', {})
+          store.dispatch('login/accountLoginAction', {
+            ...loginData.value
+          })
         }
       })
     }
