@@ -1,7 +1,7 @@
 import type {
   AxiosRequestConfig,
   AxiosResponse
-} from 'axios'
+} from "axios"
 
 export interface HYRequestInterceptors<T = AxiosResponse> {
   requestInterceptor?: (
