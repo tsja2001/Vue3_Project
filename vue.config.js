@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 // const path = require('path')
 // // webpack.config.js
-const Components = require("unplugin-vue-components/webpack")
+const Components = require('unplugin-vue-components/webpack')
 const {
   ElementPlusResolver
-} = require("unplugin-vue-components/resolvers")
+} = require('unplugin-vue-components/resolvers')
 
 module.exports = {
   // chainWebpack: (config) => {
@@ -12,17 +12,17 @@ module.exports = {
   //     .set('@', path.resolve(__dirname, 'src'))
   //     .set('views', '@/views')
   // },
-  outputDir: "./build",
+  outputDir: './build',
   // 打包后文件路径以./开头
-  publicPath: "./",
+  publicPath: './',
   configureWebpack: {
     resolve: {
       alias: {
-        views: "@/views"
+        views: '@/views'
       }
     },
     plugins: [
-      require("unplugin-vue-components/webpack")({
+      require('unplugin-vue-components/webpack')({
         /* options */
       }),
       Components({
