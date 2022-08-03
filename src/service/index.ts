@@ -1,16 +1,18 @@
 import HYRequest from './request'
 import { BASE_URL, TIME_OUT } from './request/config'
+import localCache from '@/utils/cache'
 
 const hyRequest = new HYRequest({
   timeout: TIME_OUT,
   headers: {},
   baseURL: BASE_URL,
   interceptors: {
-    requestInterceptor: (config) => {
-      const token = ''
+    requestInterceptor: (config: any) => {
+      const token = localCache.getCache('token')
+      console.log(token)
+      console.log(token)
       if (token) {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        config.headers!.AxiosRequestConfig = `Bearer ${token}`
+        config.headers.Authorization = `Bearer ${token}`
       }
       console.log('请求拦截成功')
       return config

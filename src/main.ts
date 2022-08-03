@@ -8,7 +8,7 @@ import App from './App.vue'
 
 import router from './router'
 // import hyRequest from './service'
-import store from './store'
+import store, { setupStore } from './store'
 
 import 'element-plus/theme-chalk/base.css'
 import 'element-plus/theme-chalk/display.css'
@@ -27,6 +27,9 @@ for (const [key, component] of Object.entries(
 app.use(router)
 app.use(store)
 app.mount('#app')
+
+// 用于解决刷新后, vuex中缓存token userinfo menulist等数据情况问题
+setupStore()
 
 // hyRequest.request({
 //   url: '/wuhu',

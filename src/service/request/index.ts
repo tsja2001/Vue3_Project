@@ -56,7 +56,6 @@ class HYRequest {
     this.instance.interceptors.response.use(
       (res) => {
         console.log('所有的实例都有的拦截器: 响应成功拦截')
-
         // 将loading移除
         this.loading?.close()
 

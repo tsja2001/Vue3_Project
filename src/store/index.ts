@@ -21,3 +21,8 @@ const store = createStore<IRootStore>({
 })
 
 export default store
+
+//
+export function setupStore() {
+  store.dispatch('login/loadLoaclLogin')
+}
