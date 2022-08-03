@@ -1,29 +1,3 @@
 # vue3_typescript
 
-## Project setup
-
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-
-```
-npm run build
-```
-
-### Lints and fixes files
-
-```
-npm run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 此分支为 main 分支的重构版本, 使用相似的业务逻辑的, 目的是巩固已学知识
