@@ -40,7 +40,9 @@ const loginModule: Module<ILoginState, IRootState> = {
       })
     }
   },
-  getters: {},
+  getters: {
+    getUserInfo: () => 'aaaa'
+  },
   actions: {
     // 账号密码登陆
     async accountLoginAction(
