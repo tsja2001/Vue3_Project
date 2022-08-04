@@ -15,8 +15,6 @@
       default-active="2"
       class="el-menu"
       :collapse="isCollapse"
-      @open="handleOpen"
-      @close="handleClose"
     >
       <template
         v-for="subMenuItem in menus"
@@ -39,9 +37,11 @@
               v-for="menuItem in subMenuItem.children"
               :key="menuItem.id"
             >
-              <el-menu-item :index="menuItem.id + ''">{{
-                menuItem.name
-              }}</el-menu-item>
+              <el-menu-item
+                :index="menuItem.id + ''"
+                @click="handleMenuItemClick(menuItem.url)"
+                >{{ menuItem.name }}</el-menu-item
+              >
             </template>
             <!-- <el-menu-item>{{ menuItem.name }}</el-menu-item> -->
           </el-menu-item-group>
@@ -56,6 +56,7 @@ import { computed, defineComponent } from 'vue'
 
 import { ref } from 'vue'
 import { useStore } from '@/store'
+import router from '@/router'
 
 export default defineComponent({
   setup() {
@@ -66,21 +67,16 @@ export default defineComponent({
     // 是否折叠
     const isCollapse = ref(false)
 
-    // 点击打开/关闭某个标签
-    const handleOpen = (key: string, keyPath: string[]) => {
-      console.log(key, keyPath)
-    }
-    const handleClose = (
-      key: string,
-      keyPath: string[]
-    ) => {
-      console.log(key, keyPath)
+    // 点击每一项跳转
+    const handleMenuItemClick = (url: string) => {
+      router.push({
+        path: url ?? '/not-found'
+      })
     }
 
     return {
       isCollapse,
-      handleOpen,
-      handleClose,
+      handleMenuItemClick,
       menus
     }
   }

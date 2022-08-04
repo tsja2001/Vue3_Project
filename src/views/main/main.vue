@@ -13,7 +13,9 @@
             @collapseEvent="handleCollapseEvent"
           ></NavHeader>
         </el-header>
-        <el-main class="content"></el-main>
+        <el-main class="content">
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
   </div>

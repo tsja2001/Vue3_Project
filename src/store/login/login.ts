@@ -9,6 +9,7 @@ import {
 import { IAccount } from '@/service/request/login/types'
 import localCache from '@/utils/cache'
 import router from '@/router'
+import { pamMenusToRoutes } from '@/utils/map-menus'
 
 const loginModule: Module<ILoginState, IRootState> = {
   namespaced: true,
@@ -28,6 +29,15 @@ const loginModule: Module<ILoginState, IRootState> = {
     },
     changeUserMenu(state, menu) {
       state.menu = menu
+
+      // 根据此用户菜单数据, 拿到对应vue页面的路由
+      const routes = pamMenusToRoutes(menu) as any[]
+      console.log(routes)
+      router.addRoute('main', routes[0]!.default)
+      routes.forEach((route) => {
+        router.addRoute('main', route.default)
+        // console.log(route)
+      })
     }
   },
   getters: {},
