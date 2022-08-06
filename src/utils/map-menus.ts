@@ -1,5 +1,7 @@
 import { RouteRecordRaw } from 'vue-router'
 
+let firstMenu: any = null
+
 // 讲用户菜单, 映射到路由的数组, 添加到router中
 export function pamMenusToRoutes(
   userMenus: any[]
@@ -34,6 +36,9 @@ export function pamMenusToRoutes(
         )
 
         if (route) routes.push(route)
+        if (firstMenu == null) {
+          firstMenu = menuItem
+        }
       } else if (menuItem.type === 1) {
         _recurseCetRoute(menuItem.children)
       }
@@ -44,3 +49,5 @@ export function pamMenusToRoutes(
 
   return routes
 }
+
+export { firstMenu }
