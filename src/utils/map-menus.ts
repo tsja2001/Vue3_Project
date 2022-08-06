@@ -1,3 +1,4 @@
+import { useStore } from '@/store'
 import { RouteRecordRaw } from 'vue-router'
 
 let firstMenu: any = null
@@ -50,4 +51,32 @@ export function pamMenusToRoutes(
   return routes
 }
 
-export { firstMenu }
+// 根据当前路由, 返回对应的id
+const mapUrl2Id = (url: string) => {
+  const store = useStore()
+  const menu = store.state.login.menu
+  console.log(menu)
+  let resId = 0
+  const _getId = (menuItems: any[], targetMenu: string) => {
+    for (const iterator of menuItems) {
+      // console.log(iterator.type)
+      // console.log('---')
+      // console.log(iterator.type)
+      if (iterator.type == 2) {
+        console.log(iterator.url)
+        if (iterator.url == targetMenu) {
+          resId = iterator.id
+          return
+        }
+      } else if (iterator.type == 1) {
+        _getId(iterator.children, targetMenu)
+      }
+    }
+  }
+
+  _getId(menu, url)
+
+  return resId
+}
+
+export { firstMenu, mapUrl2Id }

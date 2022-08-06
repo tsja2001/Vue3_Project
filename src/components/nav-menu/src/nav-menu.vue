@@ -12,7 +12,7 @@
       </div>
     </div>
     <el-menu
-      default-active="2"
+      :default-active="defaultIndex"
       class="el-menu"
       :collapse="isCollapse"
     >
@@ -57,6 +57,8 @@ import { computed, defineComponent } from 'vue'
 import { ref } from 'vue'
 import { useStore } from '@/store'
 import router from '@/router'
+import { useRoute, useRouter } from 'vue-router'
+import { mapUrl2Id } from '@/utils/map-menus'
 
 export default defineComponent({
   setup() {
@@ -74,10 +76,17 @@ export default defineComponent({
       })
     }
 
+    // 菜单的默认位置, 用于解决刷新后菜单显示的位置重制
+    const defaultIndex = ref('3')
+    const router = useRouter()
+    const route = useRoute()
+    const currentPath = route.path
+    defaultIndex.value = mapUrl2Id(currentPath) + ''
     return {
       isCollapse,
       handleMenuItemClick,
-      menus
+      menus,
+      defaultIndex
     }
   }
 })

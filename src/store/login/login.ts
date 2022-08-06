@@ -32,7 +32,6 @@ const loginModule: Module<ILoginState, IRootState> = {
 
       // 根据此用户菜单数据, 拿到对应vue页面的路由
       const routes = pamMenusToRoutes(menu) as any[]
-      console.log(routes)
       router.addRoute('main', routes[0]!.default)
       routes.forEach((route) => {
         router.addRoute('main', route.default)

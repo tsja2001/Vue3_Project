@@ -24,12 +24,11 @@ for (const [key, component] of Object.entries(
   app.component(key, component)
 }
 
-app.use(router)
 app.use(store)
-app.mount('#app')
-
 // 用于解决刷新后, vuex中缓存token userinfo menulist等数据情况问题
 setupStore()
+app.use(router)
+app.mount('#app')
 
 // hyRequest.request({
 //   url: '/wuhu',
